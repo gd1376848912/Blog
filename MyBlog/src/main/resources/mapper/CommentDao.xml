@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gordon.myblog.dao.CommentDao">
+
+    <resultMap type="com.gordon.myblog.entity.Comment" id="CommentMap">
+        <result property="commentId" column="comment_id" jdbcType="OTHER"/>
+        <result property="commentPid" column="comment_pid" jdbcType="OTHER"/>
+        <result property="commentPname" column="comment_pname" jdbcType="VARCHAR"/>
+        <result property="commentArticleId" column="comment_article_id" jdbcType="OTHER"/>
+        <result property="commentAuthorName" column="comment_author_name" jdbcType="VARCHAR"/>
+        <result property="commentAuthorEmail" column="comment_author_email" jdbcType="VARCHAR"/>
+        <result property="commentAuthorUrl" column="comment_author_url" jdbcType="VARCHAR"/>
+        <result property="commentAuthorAvatar" column="comment_author_avatar" jdbcType="VARCHAR"/>
+        <result property="commentContent" column="comment_content" jdbcType="VARCHAR"/>
+        <result property="commentAgent" column="comment_agent" jdbcType="VARCHAR"/>
+        <result property="commentIp" column="comment_ip" jdbcType="VARCHAR"/>
+        <result property="commentCreateTime" column="comment_create_time" jdbcType="TIMESTAMP"/>
+        <result property="commentRole" column="comment_role" jdbcType="INTEGER"/>
+    </resultMap>
+
+    <!--查询单个-->
+    <select id="queryById" resultMap="CommentMap">
+        select
+          comment_id, comment_pid, comment_pname, comment_article_id, comment_author_name, comment_author_email, comment_author_url, comment_author_avatar, comment_content, comment_agent, comment_ip, comment_create_time, comment_role
+        from myblog.comment
+        where comment_id = #{commentId}
+    </select>
+
+    <!--查询指定行数据-->
+    <select id="queryAllByLimit" resultMap="CommentMap">
+        select
+          comment_id, comment_pid, comment_pname, comment_article_id, comment_author_name, comment_author_email, comment_author_url, comment_author_avatar, comment_content, comment_agent, comment_ip, comment_create_time, comment_role
+        from myblog.comment
+        limit #{offset}, #{limit}
+    </select>
+
+    <!--通过实体作为筛选条件查询-->
+    <select id="queryAll" resultMap="CommentMap">
+        select
+          comment_id, comment_pid, comment_pname, comment_article_id, comment_author_name, comment_author_email, comment_author_url, comment_author_avatar, comment_content, comment_agent, comment_ip, comment_create_time, comment_role
+        from myblog.comment
+        <where>
+            <if test="commentId != null">
+                and comment_id = #{commentId}
+            </if>
+            <if test="commentPid != null">
+                and comment_pid = #{commentPid}
+            </if>
+            <if test="commentPname != null and commentPname != ''">
+                and comment_pname = #{commentPname}
+            </if>
+            <if test="commentArticleId != null">
+                and comment_article_id = #{commentArticleId}
+            </if>
+            <if test="commentAuthorName != null and commentAuthorName != ''">
+                and comment_author_name = #{commentAuthorName}
+            </if>
+            <if test="commentAuthorEmail != null and commentAuthorEmail != ''">
+                and comment_author_email = #{commentAuthorEmail}
+            </if>
+            <if test="commentAuthorUrl != null and commentAuthorUrl != ''">
+                and comment_author_url = #{commentAuthorUrl}
+            </if>
+            <if test="commentAuthorAvatar != null and commentAuthorAvatar != ''">
+                and comment_author_avatar = #{commentAuthorAvatar}
+            </if>
+            <if test="commentContent != null and commentContent != ''">
+                and comment_content = #{commentContent}
+            </if>
+            <if test="commentAgent != null and commentAgent != ''">
+                and comment_agent = #{commentAgent}
+            </if>
+            <if test="commentIp != null and commentIp != ''">
+                and comment_ip = #{commentIp}
+            </if>
+            <if test="commentCreateTime != null">
+                and comment_create_time = #{commentCreateTime}
+            </if>
+            <if test="commentRole != null">
+                and comment_role = #{commentRole}
+            </if>
+        </where>
+    </select>
+
+    <!--新增所有列-->
+    <insert id="insert" keyProperty="commentId" useGeneratedKeys="true">
+        insert into myblog.comment(comment_pid, comment_pname, comment_article_id, comment_author_name, comment_author_email, comment_author_url, comment_author_avatar, comment_content, comment_agent, comment_ip, comment_create_time, comment_role)
+        values (#{commentPid}, #{commentPname}, #{commentArticleId}, #{commentAuthorName}, #{commentAuthorEmail}, #{commentAuthorUrl}, #{commentAuthorAvatar}, #{commentContent}, #{commentAgent}, #{commentIp}, #{commentCreateTime}, #{commentRole})
+    </insert>
+
+    <!--通过主键修改数据-->
+    <update id="update">
+        update myblog.comment
+        <set>
+            <if test="commentPid != null">
+                comment_pid = #{commentPid},
+            </if>
+            <if test="commentPname != null and commentPname != ''">
+                comment_pname = #{commentPname},
+            </if>
+            <if test="commentArticleId != null">
+                comment_article_id = #{commentArticleId},
+            </if>
+            <if test="commentAuthorName != null and commentAuthorName != ''">
+                comment_author_name = #{commentAuthorName},
+            </if>
+            <if test="commentAuthorEmail != null and commentAuthorEmail != ''">
+                comment_author_email = #{commentAuthorEmail},
+            </if>
+            <if test="commentAuthorUrl != null and commentAuthorUrl != ''">
+                comment_author_url = #{commentAuthorUrl},
+            </if>
+            <if test="commentAuthorAvatar != null and commentAuthorAvatar != ''">
+                comment_author_avatar = #{commentAuthorAvatar},
+            </if>
+            <if test="commentContent != null and commentContent != ''">
+                comment_content = #{commentContent},
+            </if>
+            <if test="commentAgent != null and commentAgent != ''">
+                comment_agent = #{commentAgent},
+            </if>
+            <if test="commentIp != null and commentIp != ''">
+                comment_ip = #{commentIp},
+            </if>
+            <if test="commentCreateTime != null">
+                comment_create_time = #{commentCreateTime},
+            </if>
+            <if test="commentRole != null">
+                comment_role = #{commentRole},
+            </if>
+        </set>
+        where comment_id = #{commentId}
+    </update>
+
+    <!--通过主键删除-->
+    <delete id="deleteById">
+        delete from myblog.comment where comment_id = #{commentId}
+    </delete>
+
+</mapper>

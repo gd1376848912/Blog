@@ -1,0 +1,126 @@
+package com.gordon.myblog.entity;
+
+import java.util.Date;
+import java.io.Serializable;
+
+/**
+ * (Link)实体类
+ *
+ * @author makejava
+ * @since 2020-05-10 13:39:53
+ */
+public class Link implements Serializable {
+    private static final long serialVersionUID = 809681576742270429L;
+    
+    private Object linkId;
+    
+    private String linkUrl;
+    
+    private String linkName;
+    
+    private String linkImage;
+    
+    private String linkDescription;
+    
+    private String linkOwnerNickname;
+    
+    private String linkOwnerContact;
+    
+    private Date linkUpdateTime;
+    
+    private Date linkCreateTime;
+    
+    private Object linkOrder;
+    
+    private Object linkStatus;
+
+
+    public Object getLinkId() {
+        return linkId;
+    }
+
+    public void setLinkId(Object linkId) {
+        this.linkId = linkId;
+    }
+
+    public String getLinkUrl() {
+        return linkUrl;
+    }
+
+    public void setLinkUrl(String linkUrl) {
+        this.linkUrl = linkUrl;
+    }
+
+    public String getLinkName() {
+        return linkName;
+    }
+
+    public void setLinkName(String linkName) {
+        this.linkName = linkName;
+    }
+
+    public String getLinkImage() {
+        return linkImage;
+    }
+
+    public void setLinkImage(String linkImage) {
+        this.linkImage = linkImage;
+    }
+
+    public String getLinkDescription() {
+        return linkDescription;
+    }
+
+    public void setLinkDescription(String linkDescription) {
+        this.linkDescription = linkDescription;
+    }
+
+    public String getLinkOwnerNickname() {
+        return linkOwnerNickname;
+    }
+
+    public void setLinkOwnerNickname(String linkOwnerNickname) {
+        this.linkOwnerNickname = linkOwnerNickname;
+    }
+
+    public String getLinkOwnerContact() {
+        return linkOwnerContact;
+    }
+
+    public void setLinkOwnerContact(String linkOwnerContact) {
+        this.linkOwnerContact = linkOwnerContact;
+    }
+
+    public Date getLinkUpdateTime() {
+        return linkUpdateTime;
+    }
+
+    public void setLinkUpdateTime(Date linkUpdateTime) {
+        this.linkUpdateTime = linkUpdateTime;
+    }
+
+    public Date getLinkCreateTime() {
+        return linkCreateTime;
+    }
+
+    public void setLinkCreateTime(Date linkCreateTime) {
+        this.linkCreateTime = linkCreateTime;
+    }
+
+    public Object getLinkOrder() {
+        return linkOrder;
+    }
+
+    public void setLinkOrder(Object linkOrder) {
+        this.linkOrder = linkOrder;
+    }
+
+    public Object getLinkStatus() {
+        return linkStatus;
+    }
+
+    public void setLinkStatus(Object linkStatus) {
+        this.linkStatus = linkStatus;
+    }
+
+}

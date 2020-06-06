@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gordon.myblog.dao.ArticleCategoryRefDao">
+
+    <resultMap type="com.gordon.myblog.entity.ArticleCategoryRef" id="ArticleCategoryRefMap">
+        <result property="articleId" column="article_id" jdbcType="INTEGER"/>
+        <result property="categoryId" column="category_id" jdbcType="INTEGER"/>
+    </resultMap>
+
+    <!--查询单个-->
+    <select id="queryById" resultMap="ArticleCategoryRefMap" parameterType="Integer">
+        select
+          article_id, category_id
+        from myblog.article_category_ref
+        where article_id = #{articleId}
+    </select>
+
+    <!--查询指定行数据-->
+    <select id="queryAllByLimit" resultMap="ArticleCategoryRefMap">
+        select
+          article_id, category_id
+        from myblog.article_category_ref
+        limit #{offset}, #{limit}
+    </select>
+
+    <!--通过实体作为筛选条件查询-->
+    <select id="queryAll" resultMap="ArticleCategoryRefMap">
+        select
+          article_id, category_id
+        from myblog.article_category_ref
+        <where>
+            <if test="articleId != null">
+                and article_id = #{articleId}
+            </if>
+            <if test="categoryId != null">
+                and category_id = #{categoryId}
+            </if>
+        </where>
+    </select>
+
+    <!--新增所有列-->
+    <insert id="insert" keyProperty="" useGeneratedKeys="true">
+        insert into myblog.article_category_ref(article_id, category_id)
+        values (#{articleId}, #{categoryId})
+    </insert>
+
+    <!--通过主键修改数据-->
+    <update id="update">
+        update myblog.article_category_ref
+        <set>
+            <if test="articleId != null">
+                article_id = #{articleId},
+            </if>
+            <if test="categoryId != null">
+                category_id = #{categoryId},
+            </if>
+        </set>
+        where articleCategoryRef = #{articleCategoryRef}
+    </update>
+
+    <!--通过主键删除-->
+    <delete id="deleteById">
+        delete from myblog.article_category_ref where article_id = #{articleId}
+    </delete>
+
+</mapper>

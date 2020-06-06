@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gordon.myblog.dao.ArticleTagRefDao">
+
+    <resultMap type="com.gordon.myblog.entity.ArticleTagRef" id="ArticleTagRefMap">
+        <result property="articleId" column="article_id" jdbcType="INTEGER"/>
+        <result property="tagId" column="tag_id" jdbcType="INTEGER"/>
+    </resultMap>
+
+    <!--查询单个-->
+    <select id="queryById" resultMap="ArticleTagRefMap">
+        select
+          article_id, tag_id
+        from myblog.article_tag_ref
+        where article_id = #{articleId}
+    </select>
+
+    <!--查询指定行数据-->
+    <select id="queryAllByLimit" resultMap="ArticleTagRefMap">
+        select
+          article_id, tag_id
+        from myblog.article_tag_ref
+        limit #{offset}, #{limit}
+    </select>
+
+    <!--通过实体作为筛选条件查询-->
+    <select id="queryAll" resultMap="ArticleTagRefMap">
+        select
+          article_id, tag_id
+        from myblog.article_tag_ref
+        <where>
+            <if test="articleId != null">
+                and article_id = #{articleId}
+            </if>
+            <if test="tagId != null">
+                and tag_id = #{tagId}
+            </if>
+        </where>
+    </select>
+
+    <!--新增所有列-->
+    <insert id="insert" keyProperty="articleId" useGeneratedKeys="true">
+        insert into myblog.article_tag_ref()
+        values ()
+    </insert>
+
+    <!--通过主键修改数据-->
+    <update id="update">
+        update myblog.article_tag_ref
+        <set>
+        </set>
+        where article_id = #{articleId}
+    </update>
+
+    <!--通过主键删除-->
+    <delete id="deleteById">
+        delete from myblog.article_tag_ref where article_id = #{articleId}
+    </delete>
+
+</mapper>

@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gordon.myblog.dao.LinkDao">
+
+    <resultMap type="com.gordon.myblog.entity.Link" id="LinkMap">
+        <result property="linkId" column="link_id" jdbcType="OTHER"/>
+        <result property="linkUrl" column="link_url" jdbcType="VARCHAR"/>
+        <result property="linkName" column="link_name" jdbcType="VARCHAR"/>
+        <result property="linkImage" column="link_image" jdbcType="VARCHAR"/>
+        <result property="linkDescription" column="link_description" jdbcType="VARCHAR"/>
+        <result property="linkOwnerNickname" column="link_owner_nickname" jdbcType="VARCHAR"/>
+        <result property="linkOwnerContact" column="link_owner_contact" jdbcType="VARCHAR"/>
+        <result property="linkUpdateTime" column="link_update_time" jdbcType="TIMESTAMP"/>
+        <result property="linkCreateTime" column="link_create_time" jdbcType="TIMESTAMP"/>
+        <result property="linkOrder" column="link_order" jdbcType="OTHER"/>
+        <result property="linkStatus" column="link_status" jdbcType="OTHER"/>
+    </resultMap>
+
+    <!--查询单个-->
+    <select id="queryById" resultMap="LinkMap">
+        select
+          link_id, link_url, link_name, link_image, link_description, link_owner_nickname, link_owner_contact, link_update_time, link_create_time, link_order, link_status
+        from myblog.link
+        where link_id = #{linkId}
+    </select>
+
+    <!--查询指定行数据-->
+    <select id="queryAllByLimit" resultMap="LinkMap">
+        select
+          link_id, link_url, link_name, link_image, link_description, link_owner_nickname, link_owner_contact, link_update_time, link_create_time, link_order, link_status
+        from myblog.link
+        limit #{offset}, #{limit}
+    </select>
+
+    <!--通过实体作为筛选条件查询-->
+    <select id="queryAll" resultMap="LinkMap">
+        select
+          link_id, link_url, link_name, link_image, link_description, link_owner_nickname, link_owner_contact, link_update_time, link_create_time, link_order, link_status
+        from myblog.link
+        <where>
+            <if test="linkId != null">
+                and link_id = #{linkId}
+            </if>
+            <if test="linkUrl != null and linkUrl != ''">
+                and link_url = #{linkUrl}
+            </if>
+            <if test="linkName != null and linkName != ''">
+                and link_name = #{linkName}
+            </if>
+            <if test="linkImage != null and linkImage != ''">
+                and link_image = #{linkImage}
+            </if>
+            <if test="linkDescription != null and linkDescription != ''">
+                and link_description = #{linkDescription}
+            </if>
+            <if test="linkOwnerNickname != null and linkOwnerNickname != ''">
+                and link_owner_nickname = #{linkOwnerNickname}
+            </if>
+            <if test="linkOwnerContact != null and linkOwnerContact != ''">
+                and link_owner_contact = #{linkOwnerContact}
+            </if>
+            <if test="linkUpdateTime != null">
+                and link_update_time = #{linkUpdateTime}
+            </if>
+            <if test="linkCreateTime != null">
+                and link_create_time = #{linkCreateTime}
+            </if>
+            <if test="linkOrder != null">
+                and link_order = #{linkOrder}
+            </if>
+            <if test="linkStatus != null">
+                and link_status = #{linkStatus}
+            </if>
+        </where>
+    </select>
+
+    <!--新增所有列-->
+    <insert id="insert" keyProperty="linkId" useGeneratedKeys="true">
+        insert into myblog.link(link_url, link_name, link_image, link_description, link_owner_nickname, link_owner_contact, link_update_time, link_create_time, link_order, link_status)
+        values (#{linkUrl}, #{linkName}, #{linkImage}, #{linkDescription}, #{linkOwnerNickname}, #{linkOwnerContact}, #{linkUpdateTime}, #{linkCreateTime}, #{linkOrder}, #{linkStatus})
+    </insert>
+
+    <!--通过主键修改数据-->
+    <update id="update">
+        update myblog.link
+        <set>
+            <if test="linkUrl != null and linkUrl != ''">
+                link_url = #{linkUrl},
+            </if>
+            <if test="linkName != null and linkName != ''">
+                link_name = #{linkName},
+            </if>
+            <if test="linkImage != null and linkImage != ''">
+                link_image = #{linkImage},
+            </if>
+            <if test="linkDescription != null and linkDescription != ''">
+                link_description = #{linkDescription},
+            </if>
+            <if test="linkOwnerNickname != null and linkOwnerNickname != ''">
+                link_owner_nickname = #{linkOwnerNickname},
+            </if>
+            <if test="linkOwnerContact != null and linkOwnerContact != ''">
+                link_owner_contact = #{linkOwnerContact},
+            </if>
+            <if test="linkUpdateTime != null">
+                link_update_time = #{linkUpdateTime},
+            </if>
+            <if test="linkCreateTime != null">
+                link_create_time = #{linkCreateTime},
+            </if>
+            <if test="linkOrder != null">
+                link_order = #{linkOrder},
+            </if>
+            <if test="linkStatus != null">
+                link_status = #{linkStatus},
+            </if>
+        </set>
+        where link_id = #{linkId}
+    </update>
+
+    <!--通过主键删除-->
+    <delete id="deleteById">
+        delete from myblog.link where link_id = #{linkId}
+    </delete>
+
+</mapper>

@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace=".dao.ArticleDao">
+
+    <resultMap type="com.gordon.myblog.entity.Article" id="ArticleMap">
+        <result property="articleId" column="article_id" jdbcType="INTEGER"/>
+        <result property="articleUserId" column="article_user_id" jdbcType="OTHER"/>
+        <result property="articleTitle" column="article_title" jdbcType="VARCHAR"/>
+        <result property="articleContent" column="article_content" jdbcType="OTHER"/>
+        <result property="articleViewCount" column="article_view_count" jdbcType="INTEGER"/>
+        <result property="articleCommentCount" column="article_comment_count" jdbcType="INTEGER"/>
+        <result property="articleLikeCount" column="article_like_count" jdbcType="INTEGER"/>
+        <result property="articleIsComment" column="article_is_comment" jdbcType="OTHER"/>
+        <result property="articleStatus" column="article_status" jdbcType="OTHER"/>
+        <result property="articleOrder" column="article_order" jdbcType="OTHER"/>
+        <result property="articleUpdateTime" column="article_update_time" jdbcType="TIMESTAMP"/>
+        <result property="articleCreateTime" column="article_create_time" jdbcType="TIMESTAMP"/>
+        <result property="articleSummary" column="article_summary" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <!--查询单个-->
+    <select id="queryById" resultMap="ArticleMap">
+        select
+          article_id, article_user_id, article_title, article_content, article_view_count, article_comment_count, article_like_count, article_is_comment, article_status, article_order, article_update_time, article_create_time, article_summary
+        from myblog.article
+        where article_id = #{articleId}
+    </select>
+
+    <!--查询指定行数据-->
+    <select id="queryAllByLimit" resultMap="ArticleMap">
+        select
+          article_id, article_user_id, article_title, article_content, article_view_count, article_comment_count, article_like_count, article_is_comment, article_status, article_order, article_update_time, article_create_time, article_summary
+        from myblog.article
+        limit #{offset}, #{limit}
+    </select>
+
+    <!--通过实体作为筛选条件查询-->
+    <select id="queryAll" resultMap="ArticleMap">
+        select
+          article_id, article_user_id, article_title, article_content, article_view_count, article_comment_count, article_like_count, article_is_comment, article_status, article_order, article_update_time, article_create_time, article_summary
+        from myblog.article
+        <where>
+            <if test="articleId != null">
+                and article_id = #{articleId}
+            </if>
+            <if test="articleUserId != null">
+                and article_user_id = #{articleUserId}
+            </if>
+            <if test="articleTitle != null and articleTitle != ''">
+                and article_title = #{articleTitle}
+            </if>
+            <if test="articleContent != null">
+                and article_content = #{articleContent}
+            </if>
+            <if test="articleViewCount != null">
+                and article_view_count = #{articleViewCount}
+            </if>
+            <if test="articleCommentCount != null">
+                and article_comment_count = #{articleCommentCount}
+            </if>
+            <if test="articleLikeCount != null">
+                and article_like_count = #{articleLikeCount}
+            </if>
+            <if test="articleIsComment != null">
+                and article_is_comment = #{articleIsComment}
+            </if>
+            <if test="articleStatus != null">
+                and article_status = #{articleStatus}
+            </if>
+            <if test="articleOrder != null">
+                and article_order = #{articleOrder}
+            </if>
+            <if test="articleUpdateTime != null">
+                and article_update_time = #{articleUpdateTime}
+            </if>
+            <if test="articleCreateTime != null">
+                and article_create_time = #{articleCreateTime}
+            </if>
+            <if test="articleSummary != null and articleSummary != ''">
+                and article_summary = #{articleSummary}
+            </if>
+        </where>
+    </select>
+
+    <!--新增所有列-->
+    <insert id="insert" keyProperty="articleId" useGeneratedKeys="true">
+        insert into myblog.article(article_user_id, article_title, article_content, article_view_count, article_comment_count, article_like_count, article_is_comment, article_status, article_order, article_update_time, article_create_time, article_summary)
+        values (#{articleUserId}, #{articleTitle}, #{articleContent}, #{articleViewCount}, #{articleCommentCount}, #{articleLikeCount}, #{articleIsComment}, #{articleStatus}, #{articleOrder}, #{articleUpdateTime}, #{articleCreateTime}, #{articleSummary})
+    </insert>
+
+    <!--通过主键修改数据-->
+    <update id="update">
+        update myblog.article
+        <set>
+            <if test="articleUserId != null">
+                article_user_id = #{articleUserId},
+            </if>
+            <if test="articleTitle != null and articleTitle != ''">
+                article_title = #{articleTitle},
+            </if>
+            <if test="articleContent != null">
+                article_content = #{articleContent},
+            </if>
+            <if test="articleViewCount != null">
+                article_view_count = #{articleViewCount},
+            </if>
+            <if test="articleCommentCount != null">
+                article_comment_count = #{articleCommentCount},
+            </if>
+            <if test="articleLikeCount != null">
+                article_like_count = #{articleLikeCount},
+            </if>
+            <if test="articleIsComment != null">
+                article_is_comment = #{articleIsComment},
+            </if>
+            <if test="articleStatus != null">
+                article_status = #{articleStatus},
+            </if>
+            <if test="articleOrder != null">
+                article_order = #{articleOrder},
+            </if>
+            <if test="articleUpdateTime != null">
+                article_update_time = #{articleUpdateTime},
+            </if>
+            <if test="articleCreateTime != null">
+                article_create_time = #{articleCreateTime},
+            </if>
+            <if test="articleSummary != null and articleSummary != ''">
+                article_summary = #{articleSummary},
+            </if>
+        </set>
+        where article_id = #{articleId}
+    </update>
+
+    <!--通过主键删除-->
+    <delete id="deleteById">
+        delete from myblog.article where article_id = #{articleId}
+    </delete>
+
+</mapper>
